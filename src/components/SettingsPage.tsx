@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ChevronRight, Sun, Moon, Monitor } from "lucide-react";
+import { ChevronRight, Sun, Moon, Smartphone } from "lucide-react";
 import { useTheme } from "next-themes";
 
 export function SettingsPage() {
