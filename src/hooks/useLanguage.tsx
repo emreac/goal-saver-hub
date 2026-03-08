@@ -364,7 +364,7 @@ const translations: Record<string, Record<string, string>> = {
     "goals.title": "目标",
     "goals.history": "历史",
     "goals.empty.title": "还没有目标",
-    "goals.empty.subtitle": "点击"新目标"开始储蓄！",
+    "goals.empty.subtitle": "点击「新目标」开始储蓄！",
     "goals.new": "新目标",
     "goals.reached": "🎉 目标达成！",
     "goals.daily": "每日",
