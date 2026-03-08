@@ -1,4 +1,5 @@
 import { SavingsEntry, SavingsGoal } from "@/hooks/useSavingsStore";
+import { useCurrency } from "@/hooks/useCurrency";
 import { motion } from "framer-motion";
 import { format } from "date-fns";
 
@@ -7,11 +8,8 @@ interface SavingsHistoryProps {
   goals: SavingsGoal[];
 }
 
-function formatCurrency(n: number) {
-  return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 0, maximumFractionDigits: 2 }).format(n);
-}
-
 export function SavingsHistory({ entries, goals }: SavingsHistoryProps) {
+  const { formatAmount } = useCurrency();
   const sorted = [...entries].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   const goalMap = Object.fromEntries(goals.map((g) => [g.id, g]));
 
@@ -45,7 +43,7 @@ export function SavingsHistory({ entries, goals }: SavingsHistoryProps) {
                 {entry.note && <p className="text-xs text-muted-foreground truncate">{entry.note}</p>}
               </div>
               <div className="text-right shrink-0">
-                <p className="text-sm font-display font-semibold text-primary">+{formatCurrency(entry.amount)}</p>
+                <p className="text-sm font-display font-semibold text-primary">+{formatAmount(entry.amount)}</p>
                 <p className="text-[10px] text-muted-foreground">{format(new Date(entry.date), "MMM d")}</p>
               </div>
             </motion.div>

@@ -4,6 +4,7 @@ import { format } from "date-fns";
 import { Target, History } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useSavingsStore } from "@/hooks/useSavingsStore";
+import { useCurrency } from "@/hooks/useCurrency";
 import { MoneyJar } from "@/components/MoneyJar";
 import { GoalCard } from "@/components/GoalCard";
 import { AddGoalDialog } from "@/components/AddGoalDialog";
@@ -13,28 +14,18 @@ import { StreakBar } from "@/components/StreakBar";
 import { BottomNav } from "@/components/BottomNav";
 import { SettingsPage } from "@/components/SettingsPage";
 
-function formatCurrency(n: number) {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(n);
-}
-
 const Index = () => {
   const { goals, entries, addGoal, deleteGoal, addEntry, totalSaved, totalTarget } = useSavingsStore();
+  const { formatAmount } = useCurrency();
   const overallPct = totalTarget > 0 ? (totalSaved / totalTarget) * 100 : 0;
   const [activeTab, setActiveTab] = useState("home");
 
   return (
     <div className="min-h-screen bg-background safe-top pb-20">
-      {/* Streak bar */}
       <StreakBar entries={entries} />
 
       {activeTab === "home" && (
         <>
-          {/* Header */}
           <div className="relative overflow-hidden bg-gradient-to-br from-primary/10 via-background to-accent/10 pb-6">
             <div className="mx-auto max-w-lg px-5 pt-4">
               <motion.div
@@ -47,7 +38,6 @@ const Index = () => {
                 </p>
               </motion.div>
 
-              {/* Hero jar */}
               <motion.div
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
@@ -56,16 +46,15 @@ const Index = () => {
               >
                 <MoneyJar percentage={overallPct} color="savings-green" icon="💰" size="lg" />
                 <div className="mt-2 text-center">
-                  <p className="font-display text-3xl font-bold">{formatCurrency(totalSaved)}</p>
+                  <p className="font-display text-3xl font-bold">{formatAmount(totalSaved)}</p>
                   <p className="text-sm text-muted-foreground">
-                    of {formatCurrency(totalTarget)} total goals
+                    of {formatAmount(totalTarget)} total goals
                   </p>
                 </div>
               </motion.div>
             </div>
           </div>
 
-          {/* Goals & History tabs */}
           <div className="mx-auto max-w-lg px-5 -mt-1">
             <Tabs defaultValue="goals" className="w-full">
               <TabsList className="w-full rounded-xl bg-muted/80 p-1">
@@ -126,7 +115,6 @@ const Index = () => {
         </div>
       )}
 
-      {/* Bottom navigation */}
       <BottomNav active={activeTab} onChange={setActiveTab} />
     </div>
   );
