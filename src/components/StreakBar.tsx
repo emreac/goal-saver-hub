@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { SavingsEntry } from "@/hooks/useSavingsStore";
+import { useLanguage } from "@/hooks/useLanguage";
 import { motion } from "framer-motion";
 import { Flame } from "lucide-react";
 import { startOfDay, subDays } from "date-fns";
@@ -9,25 +10,22 @@ interface StreakBarProps {
 }
 
 export function StreakBar({ entries }: StreakBarProps) {
+  const { t } = useLanguage();
+
   const streak = useMemo(() => {
     if (entries.length === 0) return 0;
     let count = 0;
     let day = startOfDay(new Date());
-
-    // Check if saved today
     const hasTodayEntry = entries.some(
       (e) => startOfDay(new Date(e.date)).getTime() === day.getTime()
     );
     if (!hasTodayEntry) {
-      // Check yesterday — if no entry yesterday either, streak is 0
       day = subDays(day, 1);
       const hasYesterday = entries.some(
         (e) => startOfDay(new Date(e.date)).getTime() === day.getTime()
       );
       if (!hasYesterday) return 0;
     }
-
-    // Count consecutive days
     while (true) {
       const hasEntry = entries.some(
         (e) => startOfDay(new Date(e.date)).getTime() === day.getTime()
@@ -57,7 +55,7 @@ export function StreakBar({ entries }: StreakBarProps) {
         <div className="flex items-center gap-2">
           <Flame className="h-5 w-5 text-accent" />
           <span className="font-display font-bold text-lg">{streak}</span>
-          <span className="text-xs text-muted-foreground">day streak</span>
+          <span className="text-xs text-muted-foreground">{t("streak.day")}</span>
         </div>
         <div className="flex gap-1.5">
           {dots.map((active, i) => (

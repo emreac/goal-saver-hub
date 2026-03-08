@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { ChevronRight, Sun, Moon, Smartphone, Check } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useCurrency, CURRENCIES } from "@/hooks/useCurrency";
+import { useLanguage, LANGUAGES } from "@/hooks/useLanguage";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -10,13 +11,15 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 export function SettingsPage() {
   const { theme, setTheme } = useTheme();
   const { currency, setCurrency } = useCurrency();
+  const { language, setLanguage, t } = useLanguage();
   const [currencyOpen, setCurrencyOpen] = useState(false);
+  const [languageOpen, setLanguageOpen] = useState(false);
   const [search, setSearch] = useState("");
 
   const themeOptions = [
-    { value: "light", label: "Light", icon: Sun },
-    { value: "dark", label: "Dark", icon: Moon },
-    { value: "system", label: "System", icon: Smartphone },
+    { value: "light", label: t("settings.theme.light"), icon: Sun },
+    { value: "dark", label: t("settings.theme.dark"), icon: Moon },
+    { value: "system", label: t("settings.theme.system"), icon: Smartphone },
   ];
 
   const filtered = CURRENCIES.filter(
@@ -26,7 +29,7 @@ export function SettingsPage() {
   );
 
   const handleReset = () => {
-    if (confirm("Are you sure you want to delete all data? This cannot be undone.")) {
+    if (confirm(t("settings.reset.confirm"))) {
       localStorage.removeItem("savings-tracker-data");
       window.location.reload();
     }
@@ -41,7 +44,7 @@ export function SettingsPage() {
       {/* Theme selector */}
       <div className="rounded-2xl bg-card border border-border overflow-hidden">
         <div className="px-4 py-3 border-b border-border">
-          <span className="text-sm font-medium">Theme</span>
+          <span className="text-sm font-medium">{t("settings.theme")}</span>
         </div>
         <div className="flex p-2 gap-2">
           {themeOptions.map(({ value, label, icon: Icon }) => (
@@ -67,21 +70,31 @@ export function SettingsPage() {
           onClick={() => setCurrencyOpen(true)}
           className="w-full flex items-center justify-between px-4 py-3.5 text-left transition-colors hover:bg-muted/50"
         >
-          <span className="text-sm font-medium">Currency</span>
+          <span className="text-sm font-medium">{t("settings.currency")}</span>
           <div className="flex items-center gap-1 text-muted-foreground">
             <span className="text-xs">{currency.code} ({currency.symbol})</span>
             <ChevronRight className="h-4 w-4" />
           </div>
         </button>
-        <button className="w-full flex items-center justify-between px-4 py-3.5 text-left transition-colors hover:bg-muted/50">
-          <span className="text-sm font-medium">Notifications</span>
+        <button
+          onClick={() => setLanguageOpen(true)}
+          className="w-full flex items-center justify-between px-4 py-3.5 text-left transition-colors hover:bg-muted/50"
+        >
+          <span className="text-sm font-medium">{t("settings.language")}</span>
           <div className="flex items-center gap-1 text-muted-foreground">
-            <span className="text-xs">Off</span>
+            <span className="text-xs">{language.flag} {language.nativeName}</span>
             <ChevronRight className="h-4 w-4" />
           </div>
         </button>
         <button className="w-full flex items-center justify-between px-4 py-3.5 text-left transition-colors hover:bg-muted/50">
-          <span className="text-sm font-medium">Export Data</span>
+          <span className="text-sm font-medium">{t("settings.notifications")}</span>
+          <div className="flex items-center gap-1 text-muted-foreground">
+            <span className="text-xs">{t("settings.notifications.off")}</span>
+            <ChevronRight className="h-4 w-4" />
+          </div>
+        </button>
+        <button className="w-full flex items-center justify-between px-4 py-3.5 text-left transition-colors hover:bg-muted/50">
+          <span className="text-sm font-medium">{t("settings.export")}</span>
           <div className="flex items-center gap-1 text-muted-foreground">
             <ChevronRight className="h-4 w-4" />
           </div>
@@ -94,22 +107,22 @@ export function SettingsPage() {
           onClick={handleReset}
           className="w-full flex items-center justify-between px-4 py-3.5 text-left transition-colors hover:bg-muted/50 text-destructive"
         >
-          <span className="text-sm font-medium">Reset All Data</span>
+          <span className="text-sm font-medium">{t("settings.reset")}</span>
           <ChevronRight className="h-4 w-4" />
         </button>
       </div>
 
-      <p className="text-center text-xs text-muted-foreground pt-4">SaveJar v1.0</p>
+      <p className="text-center text-xs text-muted-foreground pt-4">{t("settings.version")}</p>
 
-      {/* Currency picker dialog */}
+      {/* Currency picker */}
       <Dialog open={currencyOpen} onOpenChange={setCurrencyOpen}>
         <DialogContent className="sm:max-w-md rounded-2xl p-0 overflow-hidden">
           <DialogHeader className="px-4 pt-5 pb-0">
-            <DialogTitle className="font-display text-lg">Select Currency</DialogTitle>
+            <DialogTitle className="font-display text-lg">{t("settings.currency.select")}</DialogTitle>
           </DialogHeader>
           <div className="px-4 py-3">
             <Input
-              placeholder="Search currencies..."
+              placeholder={t("settings.currency.search")}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               autoFocus
@@ -134,13 +147,41 @@ export function SettingsPage() {
                       <p className="text-xs text-muted-foreground">{c.name}</p>
                     </div>
                   </div>
-                  {currency.code === c.code && (
-                    <Check className="h-5 w-5 text-primary" />
-                  )}
+                  {currency.code === c.code && <Check className="h-5 w-5 text-primary" />}
                 </button>
               ))}
             </div>
           </ScrollArea>
+        </DialogContent>
+      </Dialog>
+
+      {/* Language picker */}
+      <Dialog open={languageOpen} onOpenChange={setLanguageOpen}>
+        <DialogContent className="sm:max-w-sm rounded-2xl p-0 overflow-hidden">
+          <DialogHeader className="px-4 pt-5 pb-3">
+            <DialogTitle className="font-display text-lg">{t("settings.language.select")}</DialogTitle>
+          </DialogHeader>
+          <div className="divide-y divide-border">
+            {LANGUAGES.map((lang) => (
+              <button
+                key={lang.code}
+                onClick={() => {
+                  setLanguage(lang);
+                  setLanguageOpen(false);
+                }}
+                className="w-full flex items-center justify-between px-4 py-3.5 text-left hover:bg-muted/50 transition-colors"
+              >
+                <div className="flex items-center gap-3">
+                  <span className="text-xl">{lang.flag}</span>
+                  <div>
+                    <p className="text-sm font-medium">{lang.nativeName}</p>
+                    <p className="text-xs text-muted-foreground">{lang.name}</p>
+                  </div>
+                </div>
+                {language.code === lang.code && <Check className="h-5 w-5 text-primary" />}
+              </button>
+            ))}
+          </div>
         </DialogContent>
       </Dialog>
     </motion.div>
