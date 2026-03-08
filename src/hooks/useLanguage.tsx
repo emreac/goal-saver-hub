@@ -15,6 +15,7 @@ export const LANGUAGES: Language[] = [
   { code: "es", name: "Spanish", nativeName: "Español", flag: "🇪🇸" },
   { code: "ja", name: "Japanese", nativeName: "日本語", flag: "🇯🇵" },
   { code: "zh", name: "Chinese", nativeName: "中文", flag: "🇨🇳" },
+  { code: "ko", name: "Korean", nativeName: "한국어", flag: "🇰🇷" },
 ];
 
 const translations: Record<string, Record<string, string>> = {
