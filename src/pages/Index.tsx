@@ -5,6 +5,7 @@ import { Target, History } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useSavingsStore } from "@/hooks/useSavingsStore";
 import { useCurrency } from "@/hooks/useCurrency";
+import { useLanguage } from "@/hooks/useLanguage";
 import { MoneyJar } from "@/components/MoneyJar";
 import { GoalCard } from "@/components/GoalCard";
 import { AddGoalDialog } from "@/components/AddGoalDialog";
@@ -17,6 +18,7 @@ import { SettingsPage } from "@/components/SettingsPage";
 const Index = () => {
   const { goals, entries, addGoal, deleteGoal, addEntry, totalSaved, totalTarget } = useSavingsStore();
   const { formatAmount } = useCurrency();
+  const { t } = useLanguage();
   const overallPct = totalTarget > 0 ? (totalSaved / totalTarget) * 100 : 0;
   const [activeTab, setActiveTab] = useState("home");
 
@@ -32,7 +34,7 @@ const Index = () => {
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
               >
-                <h1 className="font-display text-2xl font-bold">SaveJar 🫙</h1>
+                <h1 className="font-display text-2xl font-bold">{t("app.title")}</h1>
                 <p className="text-sm text-muted-foreground mt-0.5">
                   {format(new Date(), "EEEE, MMMM d, yyyy")}
                 </p>
@@ -48,7 +50,7 @@ const Index = () => {
                 <div className="mt-2 text-center">
                   <p className="font-display text-3xl font-bold">{formatAmount(totalSaved)}</p>
                   <p className="text-sm text-muted-foreground">
-                    of {formatAmount(totalTarget)} total goals
+                    {t("goals.of")} {formatAmount(totalTarget)} {t("goals.total")}
                   </p>
                 </div>
               </motion.div>
@@ -59,10 +61,10 @@ const Index = () => {
             <Tabs defaultValue="goals" className="w-full">
               <TabsList className="w-full rounded-xl bg-muted/80 p-1">
                 <TabsTrigger value="goals" className="flex-1 gap-1.5 rounded-lg text-xs data-[state=active]:bg-card data-[state=active]:shadow-sm">
-                  <Target className="h-3.5 w-3.5" /> Goals
+                  <Target className="h-3.5 w-3.5" /> {t("goals.title")}
                 </TabsTrigger>
                 <TabsTrigger value="history" className="flex-1 gap-1.5 rounded-lg text-xs data-[state=active]:bg-card data-[state=active]:shadow-sm">
-                  <History className="h-3.5 w-3.5" /> History
+                  <History className="h-3.5 w-3.5" /> {t("goals.history")}
                 </TabsTrigger>
               </TabsList>
 
@@ -77,8 +79,8 @@ const Index = () => {
                     className="rounded-2xl border-2 border-dashed border-border p-8 text-center"
                   >
                     <p className="text-4xl mb-3">🫙</p>
-                    <p className="font-display font-semibold">No goals yet</p>
-                    <p className="text-sm text-muted-foreground mt-1">Tap "New Goal" to start saving!</p>
+                    <p className="font-display font-semibold">{t("goals.empty.title")}</p>
+                    <p className="text-sm text-muted-foreground mt-1">{t("goals.empty.subtitle")}</p>
                   </motion.div>
                 ) : (
                   goals.map((goal, i) => (
@@ -103,14 +105,14 @@ const Index = () => {
 
       {activeTab === "stats" && (
         <div className="mx-auto max-w-lg px-5 pt-4">
-          <h2 className="font-display text-xl font-bold mb-4">Statistics</h2>
+          <h2 className="font-display text-xl font-bold mb-4">{t("stats.title")}</h2>
           <StatsOverview entries={entries} goals={goals} totalSaved={totalSaved} totalTarget={totalTarget} />
         </div>
       )}
 
       {activeTab === "settings" && (
         <div className="mx-auto max-w-lg px-5 pt-4">
-          <h2 className="font-display text-xl font-bold mb-4">Settings</h2>
+          <h2 className="font-display text-xl font-bold mb-4">{t("settings.title")}</h2>
           <SettingsPage />
         </div>
       )}

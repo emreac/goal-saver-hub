@@ -5,12 +5,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Plus } from "lucide-react";
 import { getAvailableIcons } from "@/hooks/useSavingsStore";
+import { useLanguage } from "@/hooks/useLanguage";
 
 interface AddGoalDialogProps {
   onAdd: (goal: { name: string; targetAmount: number; deadline: string; icon: string }) => void;
 }
 
 export function AddGoalDialog({ onAdd }: AddGoalDialogProps) {
+  const { t } = useLanguage();
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
   const [target, setTarget] = useState("");
@@ -34,28 +36,28 @@ export function AddGoalDialog({ onAdd }: AddGoalDialogProps) {
       <DialogTrigger asChild>
         <Button className="gap-2 rounded-full bg-primary text-primary-foreground shadow-lg hover:shadow-xl transition-shadow">
           <Plus className="h-5 w-5" />
-          New Goal
+          {t("goals.new")}
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md rounded-2xl">
         <DialogHeader>
-          <DialogTitle className="font-display text-xl">Create Savings Goal</DialogTitle>
+          <DialogTitle className="font-display text-xl">{t("dialog.create.title")}</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-5 pt-2">
           <div className="space-y-2">
-            <Label>Goal Name</Label>
-            <Input placeholder="e.g. New iPhone" value={name} onChange={(e) => setName(e.target.value)} />
+            <Label>{t("dialog.create.name")}</Label>
+            <Input placeholder={t("dialog.create.name.placeholder")} value={name} onChange={(e) => setName(e.target.value)} />
           </div>
           <div className="space-y-2">
-            <Label>Target Amount ($)</Label>
+            <Label>{t("dialog.create.target")}</Label>
             <Input type="number" min="1" step="0.01" placeholder="1000" value={target} onChange={(e) => setTarget(e.target.value)} />
           </div>
           <div className="space-y-2">
-            <Label>Target Date</Label>
+            <Label>{t("dialog.create.date")}</Label>
             <Input type="date" value={deadline} onChange={(e) => setDeadline(e.target.value)} />
           </div>
           <div className="space-y-2">
-            <Label>Icon</Label>
+            <Label>{t("dialog.create.icon")}</Label>
             <div className="flex flex-wrap gap-2">
               {icons.map((ic) => (
                 <button
@@ -72,7 +74,7 @@ export function AddGoalDialog({ onAdd }: AddGoalDialogProps) {
             </div>
           </div>
           <Button type="submit" className="w-full rounded-xl">
-            Create Goal
+            {t("dialog.create.submit")}
           </Button>
         </form>
       </DialogContent>

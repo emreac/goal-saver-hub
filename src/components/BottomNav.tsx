@@ -1,17 +1,20 @@
 import { Home, BarChart3, Settings } from "lucide-react";
+import { useLanguage } from "@/hooks/useLanguage";
 
 interface BottomNavProps {
   active: string;
   onChange: (tab: string) => void;
 }
 
-const tabs = [
-  { id: "home", label: "Home", icon: Home },
-  { id: "stats", label: "Stats", icon: BarChart3 },
-  { id: "settings", label: "Settings", icon: Settings },
-];
-
 export function BottomNav({ active, onChange }: BottomNavProps) {
+  const { t } = useLanguage();
+
+  const tabs = [
+    { id: "home", label: t("nav.home"), icon: Home },
+    { id: "stats", label: t("nav.stats"), icon: BarChart3 },
+    { id: "settings", label: t("nav.settings"), icon: Settings },
+  ];
+
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 safe-bottom bg-card/90 backdrop-blur-lg border-t border-border">
       <div className="mx-auto max-w-lg flex">
