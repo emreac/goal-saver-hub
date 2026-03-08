@@ -3,6 +3,7 @@ import { Trash2 } from "lucide-react";
 import { MoneyJar } from "./MoneyJar";
 import { AddSavingsDialog } from "./AddSavingsDialog";
 import { SavingsGoal, calcDailyTarget, calcWeeklyTarget, calcMonthlyTarget } from "@/hooks/useSavingsStore";
+import { useCurrency } from "@/hooks/useCurrency";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 
@@ -13,11 +14,8 @@ interface GoalCardProps {
   index: number;
 }
 
-function formatCurrency(n: number) {
-  return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 0, maximumFractionDigits: 2 }).format(n);
-}
-
 export function GoalCard({ goal, onAddEntry, onDelete, index }: GoalCardProps) {
+  const { formatAmount } = useCurrency();
   const pct = goal.targetAmount > 0 ? (goal.savedAmount / goal.targetAmount) * 100 : 0;
   const daily = calcDailyTarget(goal);
   const weekly = calcWeeklyTarget(goal);
@@ -31,7 +29,6 @@ export function GoalCard({ goal, onAddEntry, onDelete, index }: GoalCardProps) {
       transition={{ delay: index * 0.1 }}
       className="relative rounded-2xl bg-card border border-border p-5 shadow-sm hover:shadow-md transition-shadow"
     >
-      {/* Delete button */}
       <Button
         variant="ghost"
         size="icon"
@@ -46,8 +43,8 @@ export function GoalCard({ goal, onAddEntry, onDelete, index }: GoalCardProps) {
         <div className="flex-1 min-w-0">
           <h3 className="font-display font-semibold text-base truncate pr-6">{goal.name}</h3>
           <div className="mt-1 flex items-baseline gap-1.5">
-            <span className="font-display text-xl font-bold">{formatCurrency(goal.savedAmount)}</span>
-            <span className="text-sm text-muted-foreground">/ {formatCurrency(goal.targetAmount)}</span>
+            <span className="font-display text-xl font-bold">{formatAmount(goal.savedAmount)}</span>
+            <span className="text-sm text-muted-foreground">/ {formatAmount(goal.targetAmount)}</span>
           </div>
           <Progress value={Math.min(100, pct)} className="mt-2 h-2" />
 
@@ -62,7 +59,7 @@ export function GoalCard({ goal, onAddEntry, onDelete, index }: GoalCardProps) {
               ].map(({ label, value }) => (
                 <div key={label} className="rounded-xl bg-muted/60 py-1.5 px-1">
                   <p className="text-[10px] uppercase tracking-wider text-muted-foreground">{label}</p>
-                  <p className="font-display text-sm font-semibold">{formatCurrency(value)}</p>
+                  <p className="font-display text-sm font-semibold">{formatAmount(value)}</p>
                 </div>
               ))}
             </div>
