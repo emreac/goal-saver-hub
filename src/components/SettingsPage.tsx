@@ -24,12 +24,6 @@ export function SettingsPage() {
       animate={{ opacity: 1 }}
       className="space-y-4"
     >
-      {/* App logo & branding */}
-      <div className="flex flex-col items-center py-4">
-        <img src="/app-icon.png" alt="SaveJar" className="h-20 w-20 rounded-2xl shadow-lg" />
-        <h2 className="font-display text-lg font-bold mt-3">SaveJar</h2>
-        <p className="text-xs text-muted-foreground">Your savings, visualized</p>
-      </div>
 
       {/* Theme selector */}
       <div className="rounded-2xl bg-card border border-border overflow-hidden">
