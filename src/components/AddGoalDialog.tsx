@@ -58,13 +58,13 @@ export function AddGoalDialog({ onAdd }: AddGoalDialogProps) {
           </div>
           <div className="space-y-2">
             <Label>{t("dialog.create.icon")}</Label>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2 max-h-32 overflow-y-auto rounded-lg p-1">
               {icons.map((ic) => (
                 <button
                   key={ic}
                   type="button"
                   onClick={() => setIcon(ic)}
-                  className={`text-2xl p-2 rounded-xl transition-colors ${
+                  className={`text-xl p-1.5 rounded-lg transition-colors ${
                     icon === ic ? "bg-primary/20 ring-2 ring-primary" : "hover:bg-muted"
                   }`}
                 >

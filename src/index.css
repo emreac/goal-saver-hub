@@ -121,6 +121,83 @@
   }
 }
 
+@layer base {
+  [data-theme='pink'] {
+    --background: 330 30% 98%;
+    --card: 330 30% 99%;
+    --primary: 330 80% 60%;
+    --ring: 330 80% 60%;
+    --savings-green: 330 80% 60%;
+  }
+  .dark[data-theme='pink'], [data-theme='pink'].dark {
+    --background: 330 20% 8%;
+    --card: 330 20% 12%;
+    --primary: 330 80% 65%;
+    --ring: 330 80% 65%;
+    --savings-green: 330 80% 65%;
+  }
+
+  [data-theme='purple'] {
+    --background: 270 30% 98%;
+    --card: 270 30% 99%;
+    --primary: 270 70% 60%;
+    --ring: 270 70% 60%;
+    --savings-green: 270 70% 60%;
+  }
+  .dark[data-theme='purple'], [data-theme='purple'].dark {
+    --background: 270 20% 8%;
+    --card: 270 20% 12%;
+    --primary: 270 65% 65%;
+    --ring: 270 65% 65%;
+    --savings-green: 270 65% 65%;
+  }
+
+  [data-theme='yellow'] {
+    --background: 45 30% 97%;
+    --card: 45 30% 98%;
+    --primary: 45 90% 45%;
+    --ring: 45 90% 45%;
+    --savings-green: 45 90% 45%;
+  }
+  .dark[data-theme='yellow'], [data-theme='yellow'].dark {
+    --background: 45 20% 8%;
+    --card: 45 20% 12%;
+    --primary: 45 85% 55%;
+    --ring: 45 85% 55%;
+    --savings-green: 45 85% 55%;
+  }
+
+  [data-theme='blue'] {
+    --background: 210 30% 98%;
+    --card: 210 30% 99%;
+    --primary: 210 90% 55%;
+    --ring: 210 90% 55%;
+    --savings-green: 210 90% 55%;
+  }
+  .dark[data-theme='blue'], [data-theme='blue'].dark {
+    --background: 210 20% 8%;
+    --card: 210 20% 12%;
+    --primary: 210 80% 60%;
+    --ring: 210 80% 60%;
+    --savings-green: 210 80% 60%;
+  }
+
+  [data-theme='aqua'] {
+    --background: 180 30% 98%;
+    --card: 180 30% 99%;
+    --primary: 180 80% 40%;
+    --ring: 180 80% 40%;
+    --savings-green: 180 80% 40%;
+  }
+  .dark[data-theme='aqua'], [data-theme='aqua'].dark {
+    --background: 180 20% 8%;
+    --card: 180 20% 12%;
+    --primary: 180 70% 50%;
+    --ring: 180 70% 50%;
+    --savings-green: 180 70% 50%;
+  }
+}
+
 /* Safe area padding for iOS */
 .safe-top {
   padding-top: env(safe-area-inset-top);

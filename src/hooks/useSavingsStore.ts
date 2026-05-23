@@ -34,7 +34,11 @@ const GOAL_COLORS = [
   "savings-violet",
 ];
 
-const GOAL_ICONS = ["🏠", "🚗", "✈️", "💻", "🎓", "💍", "🏖️", "🎸", "📱", "👟"];
+const GOAL_ICONS = [
+  "👗", "🎯", "🏍️", "🚲", "⌚", "👶", "👜", "💊", "📱",
+  "🏠", "🚗", "✈️", "💻", "🎓", "💍", "🏖️", "🎸", "👟",
+  "💄", "👠", "🧴", "💎", "🧳", "🎀", "🩺", "🏋️",
+];
 
 function loadStore(): SavingsStore {
   try {
@@ -64,11 +68,13 @@ export function calcDailyTarget(goal: SavingsGoal) {
 }
 
 export function calcWeeklyTarget(goal: SavingsGoal) {
-  return calcDailyTarget(goal) * 7;
+  const remaining = goal.targetAmount - goal.savedAmount;
+  return Math.min(remaining, calcDailyTarget(goal) * 7);
 }
 
 export function calcMonthlyTarget(goal: SavingsGoal) {
-  return calcDailyTarget(goal) * 30;
+  const remaining = goal.targetAmount - goal.savedAmount;
+  return Math.min(remaining, calcDailyTarget(goal) * 30);
 }
 
 export function useSavingsStore() {

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronRight, Sun, Moon, Smartphone, Check } from "lucide-react";
 import { useTheme } from "next-themes";
+import { useColorTheme } from "@/hooks/useColorTheme";
 import { useCurrency, CURRENCIES } from "@/hooks/useCurrency";
 import { useLanguage, LANGUAGES } from "@/hooks/useLanguage";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -10,11 +11,21 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 
 export function SettingsPage() {
   const { theme, setTheme } = useTheme();
+  const { colorTheme, setColorTheme } = useColorTheme();
   const { currency, setCurrency } = useCurrency();
   const { language, setLanguage, t } = useLanguage();
   const [currencyOpen, setCurrencyOpen] = useState(false);
   const [languageOpen, setLanguageOpen] = useState(false);
   const [search, setSearch] = useState("");
+  const [notifications, setNotifications] = useState(() => {
+    return localStorage.getItem("app-notifications") === "true";
+  });
+
+  const toggleNotifications = () => {
+    const next = !notifications;
+    setNotifications(next);
+    localStorage.setItem("app-notifications", String(next));
+  };
 
   const themeOptions = [
     { value: "light", label: t("settings.theme.light"), icon: Sun },
@@ -64,6 +75,31 @@ export function SettingsPage() {
         </div>
       </div>
 
+      {/* Color Theme selector */}
+      <div className="rounded-2xl bg-card border border-border overflow-hidden">
+        <div className="px-4 py-3 border-b border-border">
+          <span className="text-sm font-medium">App Color</span>
+        </div>
+        <div className="flex p-4 gap-3 justify-between items-center">
+          {[
+            { value: "default", bg: "bg-[#259c61]" },
+            { value: "pink", bg: "bg-[#e84393]" },
+            { value: "purple", bg: "bg-[#9b59b6]" },
+            { value: "yellow", bg: "bg-[#f1c40f]" },
+            { value: "blue", bg: "bg-[#3498db]" },
+            { value: "aqua", bg: "bg-[#1abc9c]" },
+          ].map((c) => (
+            <button
+              key={c.value}
+              onClick={() => setColorTheme(c.value as any)}
+              className={`w-8 h-8 rounded-full transition-transform ${c.bg} ${
+                colorTheme === c.value ? "ring-2 ring-offset-2 ring-foreground scale-110" : "hover:scale-110"
+              }`}
+            />
+          ))}
+        </div>
+      </div>
+
       {/* Other settings */}
       <div className="rounded-2xl bg-card border border-border overflow-hidden divide-y divide-border">
         <button
@@ -86,19 +122,22 @@ export function SettingsPage() {
             <ChevronRight className="h-4 w-4" />
           </div>
         </button>
-        <button className="w-full flex items-center justify-between px-4 py-3.5 text-left transition-colors hover:bg-muted/50">
+        <div className="w-full flex items-center justify-between px-4 py-3.5">
           <span className="text-sm font-medium">{t("settings.notifications")}</span>
-          <div className="flex items-center gap-1 text-muted-foreground">
-            <span className="text-xs">{t("settings.notifications.off")}</span>
-            <ChevronRight className="h-4 w-4" />
-          </div>
-        </button>
-        <button className="w-full flex items-center justify-between px-4 py-3.5 text-left transition-colors hover:bg-muted/50">
-          <span className="text-sm font-medium">{t("settings.export")}</span>
-          <div className="flex items-center gap-1 text-muted-foreground">
-            <ChevronRight className="h-4 w-4" />
-          </div>
-        </button>
+          <button
+            onClick={toggleNotifications}
+            className={`relative inline-flex h-7 w-12 items-center rounded-full transition-colors ${
+              notifications ? "bg-primary" : "bg-muted"
+            }`}
+          >
+            <span
+              className={`inline-block h-5 w-5 rounded-full bg-white shadow-sm transition-transform ${
+                notifications ? "translate-x-6" : "translate-x-1"
+              }`}
+            />
+          </button>
+        </div>
+
       </div>
 
       {/* Danger zone */}

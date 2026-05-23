@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
 import { CurrencyProvider } from "@/hooks/useCurrency";
 import { LanguageProvider } from "@/hooks/useLanguage";
+import { ColorThemeProvider } from "@/hooks/useColorTheme";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 
@@ -13,22 +14,24 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-    <LanguageProvider>
-      <CurrencyProvider>
-        <QueryClientProvider client={queryClient}>
-          <TooltipProvider>
-            <Toaster />
-            <Sonner />
-            <BrowserRouter>
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </BrowserRouter>
-          </TooltipProvider>
-        </QueryClientProvider>
-      </CurrencyProvider>
-    </LanguageProvider>
+    <ColorThemeProvider>
+      <LanguageProvider>
+        <CurrencyProvider>
+          <QueryClientProvider client={queryClient}>
+            <TooltipProvider>
+              <Toaster />
+              <Sonner />
+              <BrowserRouter>
+                <Routes>
+                  <Route path="/" element={<Index />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </BrowserRouter>
+            </TooltipProvider>
+          </QueryClientProvider>
+        </CurrencyProvider>
+      </LanguageProvider>
+    </ColorThemeProvider>
   </ThemeProvider>
 );
 

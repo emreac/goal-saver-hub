@@ -20,7 +20,7 @@ export const LANGUAGES: Language[] = [
 
 const translations: Record<string, Record<string, string>> = {
   en: {
-    "app.title": "SaveJar 🫙",
+    "app.title": "Pink Bag 👜",
     "app.subtitle": "Your savings, visualized",
     "nav.home": "Home",
     "nav.stats": "Stats",
@@ -73,10 +73,10 @@ const translations: Record<string, Record<string, string>> = {
     "settings.export": "Export Data",
     "settings.reset": "Reset All Data",
     "settings.reset.confirm": "Are you sure you want to delete all data? This cannot be undone.",
-    "settings.version": "SaveJar v1.0",
+    "settings.version": "Pink Bag v1.0",
   },
   fr: {
-    "app.title": "SaveJar 🫙",
+    "app.title": "Pink Bag 👜",
     "app.subtitle": "Vos économies, visualisées",
     "nav.home": "Accueil",
     "nav.stats": "Stats",
@@ -129,10 +129,10 @@ const translations: Record<string, Record<string, string>> = {
     "settings.export": "Exporter les données",
     "settings.reset": "Réinitialiser toutes les données",
     "settings.reset.confirm": "Êtes-vous sûr de vouloir supprimer toutes les données ? Cette action est irréversible.",
-    "settings.version": "SaveJar v1.0",
+    "settings.version": "Pink Bag v1.0",
   },
   it: {
-    "app.title": "SaveJar 🫙",
+    "app.title": "Pink Bag 👜",
     "app.subtitle": "I tuoi risparmi, visualizzati",
     "nav.home": "Home",
     "nav.stats": "Statistiche",
@@ -185,10 +185,10 @@ const translations: Record<string, Record<string, string>> = {
     "settings.export": "Esporta dati",
     "settings.reset": "Ripristina tutti i dati",
     "settings.reset.confirm": "Sei sicuro di voler eliminare tutti i dati? Questa azione è irreversibile.",
-    "settings.version": "SaveJar v1.0",
+    "settings.version": "Pink Bag v1.0",
   },
   de: {
-    "app.title": "SaveJar 🫙",
+    "app.title": "Pink Bag 👜",
     "app.subtitle": "Deine Ersparnisse, visualisiert",
     "nav.home": "Start",
     "nav.stats": "Statistik",
@@ -241,10 +241,10 @@ const translations: Record<string, Record<string, string>> = {
     "settings.export": "Daten exportieren",
     "settings.reset": "Alle Daten zurücksetzen",
     "settings.reset.confirm": "Bist du sicher, dass du alle Daten löschen möchtest? Dies kann nicht rückgängig gemacht werden.",
-    "settings.version": "SaveJar v1.0",
+    "settings.version": "Pink Bag v1.0",
   },
   es: {
-    "app.title": "SaveJar 🫙",
+    "app.title": "Pink Bag 👜",
     "app.subtitle": "Tus ahorros, visualizados",
     "nav.home": "Inicio",
     "nav.stats": "Estadísticas",
@@ -297,10 +297,10 @@ const translations: Record<string, Record<string, string>> = {
     "settings.export": "Exportar datos",
     "settings.reset": "Restablecer todos los datos",
     "settings.reset.confirm": "¿Estás seguro de que deseas eliminar todos los datos? Esta acción no se puede deshacer.",
-    "settings.version": "SaveJar v1.0",
+    "settings.version": "Pink Bag v1.0",
   },
   ja: {
-    "app.title": "SaveJar 🫙",
+    "app.title": "Pink Bag 👜",
     "app.subtitle": "あなたの貯蓄を視覚化",
     "nav.home": "ホーム",
     "nav.stats": "統計",
@@ -353,10 +353,10 @@ const translations: Record<string, Record<string, string>> = {
     "settings.export": "データをエクスポート",
     "settings.reset": "すべてのデータをリセット",
     "settings.reset.confirm": "すべてのデータを削除してもよろしいですか？この操作は元に戻せません。",
-    "settings.version": "SaveJar v1.0",
+    "settings.version": "Pink Bag v1.0",
   },
   zh: {
-    "app.title": "SaveJar 🫙",
+    "app.title": "Pink Bag 👜",
     "app.subtitle": "你的储蓄，可视化",
     "nav.home": "首页",
     "nav.stats": "统计",
@@ -409,10 +409,10 @@ const translations: Record<string, Record<string, string>> = {
     "settings.export": "导出数据",
     "settings.reset": "重置所有数据",
     "settings.reset.confirm": "确定要删除所有数据吗？此操作无法撤消。",
-    "settings.version": "SaveJar v1.0",
+    "settings.version": "Pink Bag v1.0",
   },
   ko: {
-    "app.title": "SaveJar 🫙",
+    "app.title": "Pink Bag 👜",
     "app.subtitle": "당신의 저축, 시각화",
     "nav.home": "홈",
     "nav.stats": "통계",
@@ -465,7 +465,7 @@ const translations: Record<string, Record<string, string>> = {
     "settings.export": "데이터 내보내기",
     "settings.reset": "모든 데이터 초기화",
     "settings.reset.confirm": "모든 데이터를 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.",
-    "settings.version": "SaveJar v1.0",
+    "settings.version": "Pink Bag v1.0",
   },
 };
 
